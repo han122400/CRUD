@@ -21,12 +21,12 @@ const getTopicById = async (id: string) => {
 };
 
 interface EditTopicProps {
-  params: { id: string };
+  params: Promise<{ id: string }>;
 }
 
 export default async function EditTopic({ params }: EditTopicProps) {
   // params를 바로 구조분해하지 않고, 필요한 id 추출
-  const id = params.id;
+  const { id } = await params;
 
   const data = await getTopicById(id);
   if (!data || !data.topic) {
